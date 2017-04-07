@@ -13,7 +13,7 @@ This document describe the process for using Standford CoreNLP packages with use
 * Install external libraries
 * Apply UDFs
 
-###Installing External Libraries
+### Installing External Libraries
 
 We assume you have followed the ​instructions to set up a running AsterixDB instance. Let us refer to your AsterixDB instance by the name "my_asterix".
 
@@ -54,9 +54,9 @@ You may now use the AsterixDB library in AQL statements and queries. To look at 
     for $x in dataset Metadata.Library
     return $x        
 
-###Applying UDFs
+### Applying UDFs
 
-####Creating Input Data Types
+#### Creating Input Data Types
 The following query creates a dataverse, that acts as a namespace for all datatypes that we also create there after. We assume that these UDFs will be applied to Twitter data for which we expect a specific schema.
 
     drop dataverse feeds if exists;
