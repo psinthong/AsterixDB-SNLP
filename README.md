@@ -74,8 +74,8 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 * Output type for NER
 * Output type for Twitter Sentiment
 
-    use dataverse feeds;
 
+    use dataverse feeds;
     create type NameEntityType if not exists as closed{
         id: int64,
         text: string,
@@ -145,7 +145,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 ##### Syntax for Person Recognition
 
-        snlp#getName(item)
+        snlp#getName($item)
 
 - Runs analysis on a given text and extracts our Location entities
 - Argument:
