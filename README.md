@@ -84,6 +84,9 @@ The following query creates a dataverse, that acts as a namespace for all dataty
         sentiment: string
     };
 
+### Sample Query
+    let $item := {"id":"1", "text":"Today is Friday"}
+    return snlp#getSentiment($item)
 
 ## Function Usage
 
