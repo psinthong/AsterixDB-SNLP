@@ -4,7 +4,7 @@
 
 This document describe the process for using Standford CoreNLP packages with user-defined functions(UDF) in AsterixDB. We assume you have followed the [installation instructions](http://asterixdb.apache.org/docs/0.9.0/install.html) to set up a running AsterixDB instance.
 
-### How To Use
+## How To Use
 * Clone this repo onto your local machine.
 * Build this project(use `mvn install` or `mvn package`).
 * The UDF package will be under `target/` directory.
@@ -13,7 +13,7 @@ This document describe the process for using Standford CoreNLP packages with use
 * Install external libraries
 * Apply UDFs
 
-### Installing External Libraries
+## Installing External Libraries
 
 We assume you have followed the ​instructions to set up a running AsterixDB instance. Let us refer to your AsterixDB instance by the name "my_asterix".
 
@@ -54,9 +54,9 @@ You may now use the AsterixDB library in AQL statements and queries. To look at 
     for $x in dataset Metadata.Library
     return $x        
 
-### Applying UDFs
+## Applying UDFs
 
-#### Creating Input Data Types
+### Creating Input Data Types
 The following query creates a dataverse, that acts as a namespace for all datatypes that we also create there after. We assume that these UDFs will be applied to Twitter data for which we expect a specific schema.
 
     drop dataverse feeds if exists;
@@ -69,11 +69,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
         text : string
     };
 
-#### Creating Output Data Types
-
-* Output type for NER
-* Output type for Twitter Sentiment
-
+### Creating Output Data Types
 
     use dataverse feeds;
     create type NameEntityType if not exists as closed{
@@ -89,9 +85,9 @@ The following query creates a dataverse, that acts as a namespace for all dataty
     };
 
 
-### Function Usage
+## Function Usage
 
-##### Syntax for Sentiment Analysis
+### Syntax for Sentiment Analysis
 
         snlp#getSentiment($item)
 
@@ -109,7 +105,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "sentiment": "Neutral" 
         }
 
-##### Syntax for Date Recognition
+### Syntax for Date Recognition
 
         snlp#getDate($item)
 
@@ -126,7 +122,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "entities": [ "Thursday", "Yesterday" ] 
         }
 
-##### Syntax for Location Recognition
+### Syntax for Location Recognition
 
         snlp#getLocation($item)
 
@@ -143,7 +139,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "entities": [ "NYC", "London" ] 
         }
 
-##### Syntax for Person Recognition
+### Syntax for Person Recognition
 
         snlp#getName($item)
 
