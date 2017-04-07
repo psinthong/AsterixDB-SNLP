@@ -69,7 +69,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
         text : string
     };
 
-####Creating Output Data Types
+#### Creating Output Data Types
 
 * Output type for NER
 * Output type for Twitter Sentiment
@@ -89,9 +89,9 @@ The following query creates a dataverse, that acts as a namespace for all dataty
     };
 
 
-###Function Usage
+### Function Usage
 
-#####Syntax for Sentiment Analysis
+##### Syntax for Sentiment Analysis
 
         snlp#getSentiment($item)
 
@@ -109,7 +109,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "sentiment": "Neutral" 
         }
 
-#####Syntax for Date Recognition
+##### Syntax for Date Recognition
 
         snlp#getDate($item)
 
@@ -126,7 +126,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "entities": [ "Thursday", "Yesterday" ] 
         }
 
-#####Syntax for Location Recognition
+##### Syntax for Location Recognition
 
         snlp#getLocation($item)
 
@@ -143,7 +143,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "entities": [ "NYC", "London" ] 
         }
 
-#####Syntax for Person Recognition
+##### Syntax for Person Recognition
 
         snlp#getName(item)
 
