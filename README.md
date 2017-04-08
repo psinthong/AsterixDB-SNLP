@@ -35,9 +35,9 @@ We assume you have followed the ​instructions to set up a running AsterixDB in
         l  Name of the library
         p  Path to library zip bundle
 
-Above is a sample output and explains the usage and the required parameters. Each library has a name and is installed under a dataverse. Recall that we had created a dataverse by the name - "feeds" prior to creating our datatypes and dataset. We shall name our library - "snlplib", but ofcourse, you may choose another name.
+Above is a sample output and explains the usage and the required parameters. Each library has a name and is installed under a dataverse. Recall that we had created a dataverse by the name - "feeds" prior to creating our datatypes and dataset. We shall name our library - "snlp", but ofcourse, you may choose another name.
 
-You may download the pre-packaged library here​ and place the downloaded library (a zip bundle) at a convenient location on your disk. To install the library, use the Managix install command. An example is shown below.
+You may place the pre-packaged library(a zip bundle generated using this codebase) at a convenient location on your disk. To install the library, use the Managix install command. An example is shown below.
 
     $ managix install -n my_asterix -d feeds -l snlp -p <put the absolute path of the library zip bundle here> 
 
