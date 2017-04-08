@@ -100,7 +100,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 - Runs analysis on a given text and gives back a score in range of 0-4
 - Argument:
-    + item: a data record with an attribute `text`
+    + item: a data record of type Tweet with an attribute `text`
 - Return Value:
     + a record of type SentimentType.
 - Expected Result:
@@ -118,7 +118,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 - Runs analysis on a given text and extracts our Date entities
 - Argument:
-    + item: a data record with an attribute `text`
+    + item: a data record of type Tweet with an attribute `text`
 - Return Value:
     + a record of type NameEntityType.
 - Expected Result:
@@ -135,7 +135,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 - Runs analysis on a given text and extracts out Person entities
 - Argument:
-    + item: a data record with an attribute `text`
+    + item: a data record of type Tweet with an attribute `text`
 - Return Value:
     + a record of type NameEntityType.
 - Expected Result:
@@ -152,7 +152,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 - Runs analysis on a given text and extracts our Location entities
 - Argument:
-    + item: a data record with an attribute `text`
+    + item: a data record of type Tweet with an attribute `text`
 - Return Value:
     + a record of type NameEntityType.
 - Expected Result:
