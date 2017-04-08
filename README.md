@@ -1,5 +1,5 @@
 
-# Using Standford CoreNLP Library 
+# Using Standford CoreNLP UDFs 
 
 
 This document describe the process for using Standford CoreNLP packages with user-defined functions(UDF) in AsterixDB. We assume you have followed the [installation instructions](http://asterixdb.apache.org/docs/0.9.0/install.html) to set up a running AsterixDB instance.
@@ -8,11 +8,17 @@ This document describe the process for using Standford CoreNLP packages with use
 * Clone this repo onto your local machine.
 * Build this project(use `mvn install` or `mvn package`).
 * The UDF package will be under `target/` directory.
-* Copy provided .jar files under `jar`/ to asterix-server zip file (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
+* Copy provided three .jar files to asterix-server zip file (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
     - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
+    - Download necessary jar files from [standford website] (https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
 * Install external libraries
 * Apply UDFs
 
+## Download library files
+- Download necessary jar files from [standford website] (https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
+- Drop these jar files into asterix-server zip folder (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
+    - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
+    
 ## Installing External Libraries
 
 We assume you have followed the ​instructions to set up a running AsterixDB instance. Let us refer to your AsterixDB instance by the name "my_asterix".
