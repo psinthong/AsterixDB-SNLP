@@ -13,7 +13,7 @@ This document describe the process for using Standford CoreNLP packages with use
 * [Apply UDFs](#apply)
 
 ## <a name="library">Download library files</a>
-- Download necessary jar files from [standford website] (https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
+- Download necessary jar files from [standford website](https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
 - Drop these jar files into asterix-server zip folder (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
     - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
     
