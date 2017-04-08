@@ -7,7 +7,7 @@ This document describe the process for using Standford CoreNLP packages with use
 ## How To Use
 * Clone this repo onto your local machine.
 * Build this project(use `mvn install` or `mvn package`).
-* The UDF package will be under `target/` directory.
+* The UDF package will be under `target/` directory. This is the external library that will be loaded during [installation process](#install)
 * [Download necessary library files](#library)
 * [Install external libraries](#install)
 * [Apply UDFs](#apply)
