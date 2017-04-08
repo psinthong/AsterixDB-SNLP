@@ -46,7 +46,9 @@ public class DateRecognitionFunction implements IExternalScalarFunction {
 
     @Override
     public void evaluate(IFunctionHelper functionHelper) throws Exception {
-        JString text = ((JString) functionHelper.getArgument(0));
+        JRecord inputRecord = (JRecord) functionHelper.getArgument(0);
+        JString text = (JString) inputRecord.getValueByName("text");
+
         JRecord record = (JRecord) functionHelper.getResultObject();
 
         //NER
