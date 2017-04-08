@@ -8,18 +8,16 @@ This document describe the process for using Standford CoreNLP packages with use
 * Clone this repo onto your local machine.
 * Build this project(use `mvn install` or `mvn package`).
 * The UDF package will be under `target/` directory.
-* Copy provided three .jar files to asterix-server zip file (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
-    - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
-    - Download necessary jar files from [standford website] (https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
-* Install external libraries
-* Apply UDFs
+* [Download necessary library files](#library)
+* [Install external libraries](#install)
+* [Apply UDFs](#apply)
 
-## Download library files
+## <a name="library">Download library files</a>
 - Download necessary jar files from [standford website] (https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
 - Drop these jar files into asterix-server zip folder (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
     - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
     
-## Installing External Libraries
+## <a name="install">Installing External Libraries</a>
 
 We assume you have followed the ​instructions to set up a running AsterixDB instance. Let us refer to your AsterixDB instance by the name "my_asterix".
 
@@ -60,7 +58,7 @@ You may now use the AsterixDB library in AQL statements and queries. To look at 
     for $x in dataset Metadata.Library
     return $x        
 
-## Applying UDFs
+## <a name="apply">Applying UDFs</a>
 
 ### Creating Input Data Types
 The following query creates a dataverse, that acts as a namespace for all datatypes that we also create there after. We assume that these UDFs will be applied to Twitter data for which we expect a specific schema.
