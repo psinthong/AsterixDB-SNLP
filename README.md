@@ -30,7 +30,7 @@ and `ejml.jar` into this directory.
 * Make sure your instance is stopped before install UDF.
 * Find `udf.sh` under `opt/ansible/bin` and deploy your UDF package to all nodes using following command:
 
-    ./udf.sh -m i -d DATAVERSE_NAME -l LIBRARY_NAME -p PATH_TO_UDF_PACKAGE
+        ./udf.sh -m i -d DATAVERSE_NAME -l LIBRARY_NAME -p PATH_TO_UDF_PACKAGE
 
   If the target dataverse doesn't exist, it will be created automatically with the UDF installation.
 * Start your instance and have fun with your UDF.
