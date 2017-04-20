@@ -35,7 +35,7 @@ and `ejml.jar` into this directory.
   If the target dataverse doesn't exist, it will be created automatically with the UDF installation.
 * Start your instance and have fun with your UDF.
 
-## <a name="install_managix">Install External Libraries using Managix</a>
+## <a name="install_managix">Install External Libraries with Managix</a>
 
 Managix is another installtion option. Setup an running instance with [AsterixDB documentation](https://ci.apache.org/projects/asterixdb/install.html).
 Let us refer to your AsterixDB instance by the name "my_asterix".
