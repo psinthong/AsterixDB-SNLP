@@ -9,17 +9,36 @@ This document describe the process for using Standford CoreNLP packages with use
 * Build this project(use `mvn install` or `mvn package`).
 * The UDF package will be under `target/` directory. This is the external library that will be loaded during [installation process](#install)
 * [Download necessary library files](#library)
-* [Install external libraries](#install)
+* [Install external libraries with Ansible](#install_ansible)
+* [Install external libraries with Managix](#install_managix)
 * [Apply UDFs](#apply)
 
 ## <a name="library">Download library files</a>
-- Download necessary jar files from [standford website](https://stanfordnlp.github.io/CoreNLP/download.html) or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are stanford-corenlp.jar, stanford-corenlp-model.jar and ejml.jar
+- Download necessary jar files from [standford website](https://stanfordnlp.github.io/CoreNLP/download.html)
+or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are `stanford-corenlp.jar`, `stanford-corenlp-model.jar` and `ejml.jar`
 - Drop these jar files into asterix-server zip folder (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
     - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
-    
-## <a name="install">Installing External Libraries</a>
 
-We assume you have followed the ​instructions to set up a running AsterixDB instance. Let us refer to your AsterixDB instance by the name "my_asterix".
+## <a name="install_ansible"> Install external libraries with Ansible</a>
+AsterixDB provides Ansible as one of its installation option. With Ansible, we can
+easily deploy UDF and its dependencies to all nodes.
+
+* Follow the instruction in [AsterixDB documentation](https://ci.apache.org/projects/asterixdb/ansible.html) and
+deploy AsterixDB to the cluster. If you have any dependencies that is required for your UDF, copy them into `repo`
+directory before deploy. In this example, you need to copy `stanford-corenlp.jar`, `stanford-corenlp-model.jar`
+and `ejml.jar` into this directory.
+* Make sure your instance is stopped before install UDF.
+* Find `udf.sh` under `opt/ansible/bin` and deploy your UDF package to all nodes using following command:
+
+    ./udf.sh -m i -d DATAVERSE_NAME -l LIBRARY_NAME -p PATH_TO_UDF_PACKAGE
+
+  If the target dataverse doesn't exist, it will be created automatically with the UDF installation.
+* Start your instance and have fun with your UDF.
+
+## <a name="install_managix">Install External Libraries using Managix</a>
+
+Managix is another installtion option. Setup an running instance with [AsterixDB documentation](https://ci.apache.org/projects/asterixdb/install.html).
+Let us refer to your AsterixDB instance by the name "my_asterix".
 
 **Step 1**: Stop the AsterixDB instance if it is in the ACTIVE state.
 
