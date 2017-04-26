@@ -14,8 +14,10 @@ This document describe the process for using Standford CoreNLP packages with use
 * [Apply UDFs](#apply)
 
 ## <a name="library">Download library files</a>
-- Download necessary jar files from [standford website](https://stanfordnlp.github.io/CoreNLP/download.html)
+- Download Stanford CoreNLP jar files from [standford website](https://stanfordnlp.github.io/CoreNLP/download.html)
 or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are `stanford-corenlp.jar`, `stanford-corenlp-model.jar` and `ejml.jar`
+- Download OpenNLP jar files : [tools](https://mvnrepository.com/artifact/org.apache.opennlp/opennlp/1.7.0)
+and [models](https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-maxent/3.0.3) Note: you will only need two jar files which are `opennlp-tools-1.7.0.jar` and `opennlp-maxent.jar` 
 - Drop these jar files into asterix-server zip folder (ie. `asterix-server-0.9.0-binary-assembly.zip`). You will need to unzip this asterix-server zip file and drop all jars into `repo`/ folder then zip it back.
     - zip -rg `asterix-server-0.9.0-binary-assembly.zip` `asterix-server-0.9.0-binary-assembly`
 
@@ -107,9 +109,13 @@ The following query creates a dataverse, that acts as a namespace for all dataty
         sentiment: string
     };
 
-### Sample Query
+### Sample Query for Stanford CoreNLP sentiment
     let $item := {"id":1, "text":"Today is Friday"}
     return snlp#getSentiment($item)
+    
+### Sample Query for OpenNLP sentiment
+    let $item := {"id":1, "text":"Today is Friday"}
+    return snlp#getONLPSentiment($item)
 
 ## Function Usage
 
