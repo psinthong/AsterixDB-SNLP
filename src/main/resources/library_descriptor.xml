@@ -37,6 +37,14 @@
     </libraryFunction>
     <libraryFunction>
       <function_type>SCALAR</function_type>
+      <name>getONLPSentiment</name>
+      <arguments>Tweet</arguments>
+      <return_type>TweetSentimentType</return_type>
+      <definition>org.apache.asterix.external.library.ONLPSentimentFactory
+      </definition>
+    </libraryFunction>
+    <libraryFunction>
+      <function_type>SCALAR</function_type>
       <name>getLocation</name>
       <arguments>Tweet</arguments>
       <return_type>NameEntityType</return_type>
