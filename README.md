@@ -124,9 +124,11 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 ### Syntax for Sentiment Analysis
 
-##### Stanford CoreNLP
+##### Stanford CoreNLP & OpenNLP
 
         snlp#getSentiment($item)
+        
+        snlp#getONLPSentiment($item)
 
 - Runs analysis on a given text and gives back a score in range of 0-4
 - Argument:
@@ -142,7 +144,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "sentiment": "Neutral" 
         }
         
-##### OpenNLP
+##### Only get Sentiment score(OpenNLP)
  
      snlp#getSentimentScore($s)
 
@@ -154,22 +156,6 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 
 
-    snlp#getONLPSentiment($item)
-
-- Runs analysis on a given text and gives back a score in range of 0-4
-- Argument:
-    + item: a data record of type Tweet with an attribute `text`
-- Return Value:
-    + a record of type SentimentType.
-- Expected Result:
-
-        {   
-            "id": 1, 
-            "text": "Today is Friday", 
-            "score": 2, 
-            "sentiment": "Neutral" 
-        }
-        
 ### Syntax for Date Recognition
 
         snlp#getDate($item)
