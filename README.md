@@ -1,5 +1,5 @@
 
-# Using Standford CoreNLP UDFs 
+# Using Stanford CoreNLP UDFs 
 
 
 This document describe the process for using Standford CoreNLP packages with user-defined functions(UDF) in AsterixDB. We assume you have followed the [installation instructions](http://asterixdb.apache.org/docs/0.9.0/install.html) to set up a running AsterixDB instance.
