@@ -18,74 +18,72 @@
  */
 package org.apache.asterix.external.library;
 
-import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
-import edu.stanford.nlp.pipeline.Annotation;
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.util.CoreMap;
+import opennlp.tools.doccat.DoccatModel;
+import opennlp.tools.doccat.DocumentCategorizerME;
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
-import org.apache.asterix.external.library.java.JObjects;
-import org.apache.asterix.external.library.java.JObjects.JRecord;
+
 import org.apache.asterix.external.library.java.JObjects.JString;
 import org.apache.asterix.external.library.java.JObjects.JInt;
 import org.apache.asterix.external.library.java.JTypeTag;
 
-import java.util.Properties;
+import java.io.InputStream;
+
 
 public class SentimentAnalysisScoreFunction implements IExternalScalarFunction {
 
-    private JInt result;
 
-    @Override
-    public void deinitialize() {
-        System.out.println("De-Initialized");
-    }
+    private static DoccatModel m;
 
     @Override
     public void evaluate(IFunctionHelper functionHelper) throws Exception {
         JString text = ((JString) functionHelper.getArgument(0));
 
-        JInt num = (JInt) functionHelper.getObject(JTypeTag.INT);
+        JInt result = (JInt) functionHelper.getObject(JTypeTag.INT);
 
 
         //Getting sentiment score
-        int score = findSentiment(text.getValue());
+        int score = getSentiment(text.getValue(), m);
 
 
         result.setValue(score);
         functionHelper.setResult(result);
     }
 
-    @Override
-    public void initialize(IFunctionHelper functionHelper) throws Exception {
 
-        result = (JInt) functionHelper.getResultObject();
+    @Override
+    public void deinitialize() {
+        System.out.println("De-Initialized");
     }
 
-    public static int findSentiment(String tweet) {
 
-        Properties props = new Properties();
-        props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+    @Override
+    public void initialize(IFunctionHelper functionHelper) throws Exception {
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream("en-doccat.bin");
+        m = new DoccatModel(in);
+    }
 
-        int mainSentiment = 0;
-        if (tweet != null && tweet.length() > 0) {
-            int longest = 0;
-            Annotation annotation = pipeline.process(tweet);
-            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
-                Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
-                int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
-                String partText = sentence.toString();
-                if (partText.length() > longest) {
-                    mainSentiment = sentiment;
-                    longest = partText.length();
-                }
-            }
+
+    public static int getSentiment(String tweet, DoccatModel model) {
+        DocumentCategorizerME myCategorizer = new DocumentCategorizerME(model);
+        double[] outcomes = myCategorizer.categorize(tweet);
+        String category = myCategorizer.getBestCategory(outcomes);
+
+
+        if (category.equalsIgnoreCase("0")) {
+            return 0;
+        } else if(category.equalsIgnoreCase("1")) {
+            return 1;
         }
-        return mainSentiment;
+        else if(category.equalsIgnoreCase("2")) {
+            return 2;
+        }
+        else if(category.equalsIgnoreCase("3")) {
+            return 3;
+        }
+        else{
+            return 4;
+        }
     }
 
 }
