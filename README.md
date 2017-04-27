@@ -114,11 +114,9 @@ The following query creates a dataverse, that acts as a namespace for all dataty
     return snlp#getSentiment($item)
     
 ### Sample Query for OpenNLP sentiment
+
     let $item := {"id":1, "text":"Today is Friday"}
     return snlp#getONLPSentiment($item)
-    
-- Only returning sentiment score
-
     
     snlp#getSentimentScore("Today is Friday")
     
@@ -153,6 +151,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
     + s: string
 - Return Value:
     + int32
+
 
 
     snlp#getONLPSentiment($item)
