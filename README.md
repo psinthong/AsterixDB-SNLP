@@ -2,7 +2,7 @@
 # Using Stanford CoreNLP & OpenNLP UDFs 
 
 
-This document describe the process for using Standford CoreNLP and OpenNLP packages with user-defined functions(UDF) in AsterixDB. We assume you have followed the [installation instructions](http://asterixdb.apache.org/docs/0.9.0/install.html) to set up a running AsterixDB instance.
+This document describe the process for using Stanford CoreNLP and OpenNLP packages with user-defined functions(UDF) in AsterixDB. We assume you have followed the [installation instructions](http://asterixdb.apache.org/docs/0.9.0/install.html) to set up a running AsterixDB instance.
 
 ## How To Use
 * Clone this repo onto your local machine.
