@@ -14,7 +14,7 @@ This document describe the process for using Stanford CoreNLP and OpenNLP packag
 * [Apply UDFs](#apply)
 
 ## <a name="library">Download library files</a>
-- Download Stanford CoreNLP jar files from [standford website](https://stanfordnlp.github.io/CoreNLP/download.html)
+- Download Stanford CoreNLP jar files from [Stanford website](https://stanfordnlp.github.io/CoreNLP/download.html)
 or a [private repository](https://drive.google.com/open?id=0B8f-3gEi4pmhcUQzNzFQSUxpTEk) Note: you will only need three jar files which are `stanford-corenlp.jar`, `stanford-corenlp-model.jar` and `ejml.jar`
 - Download OpenNLP jar files : [tools](https://mvnrepository.com/artifact/org.apache.opennlp/opennlp/1.7.0)
 and [models](https://mvnrepository.com/artifact/org.apache.opennlp/opennlp-maxent/3.0.3) Note: you will only need two jar files which are `opennlp-tools-1.7.0.jar` and `opennlp-maxent.jar` 
