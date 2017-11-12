@@ -67,5 +67,13 @@
       <definition>org.apache.asterix.external.library.DateRecognitionFactory
       </definition>
     </libraryFunction>
+    <libraryFunction>
+      <function_type>SCALAR</function_type>
+      <name>getSKLSentiment</name>
+      <arguments>ASTRING</arguments>
+      <return_type>ASTRING</return_type>
+      <definition>org.apache.asterix.external.library.SkLearnSentimentFactory
+      </definition>
+    </libraryFunction>
   </libraryFunctions>
 </externalLibrary>
