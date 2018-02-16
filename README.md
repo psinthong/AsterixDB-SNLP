@@ -83,7 +83,7 @@ You may now use the AsterixDB library in AQL statements and queries. To look at 
 ### Creating Input Data Types
 The following query creates a dataverse, that acts as a namespace for all datatypes that we also create there after. We assume that these UDFs will be applied to Twitter data for which we expect a specific schema.
 
-    drop feeds if exists;
+    drop dataverse feeds if exists;
     create dataverse feeds;
     use feeds;
 
