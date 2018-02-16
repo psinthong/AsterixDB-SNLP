@@ -73,11 +73,10 @@ We shall next start our AsterixDB instance using the start command as shown belo
 
 You may now use the AsterixDB library in AQL statements and queries. To look at the installed artifacts, you may execute the following query at the AsterixDB web-console.
 
-    for $x in dataset Metadata.Function 
-    return $x
+    SELECT VALUE f FROM Metadata.`Function` f;
 
-    for $x in dataset Metadata.Library
-    return $x        
+    SELECT VALUE l dataset FROM Metadata.`Library` l;
+
 
 ## <a name="apply">Applying UDFs</a>
 
@@ -111,7 +110,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 ### Sample Query for Stanford CoreNLP sentiment
 
-    snlp#getSentiment({"id":1, "text":"Today is Friday"})
+    snlp#getSNLPSentiment({"id":1, "text":"Today is Friday"})
 
     snlp#getSNLPSentimentScore("Today is Friday")
     
@@ -127,7 +126,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 ##### Stanford CoreNLP & OpenNLP
 
-        snlp#getSentiment($item)
+        snlp#getSNLPSentiment($item)
         
         snlp#getONLPSentiment($item)
 
