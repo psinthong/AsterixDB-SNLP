@@ -16,16 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.asterix.external.library;
 
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionFactory;
 
-public class LocationRecognitionFactory implements IFunctionFactory {
+public class ONLPSentimentScoreFactory implements IFunctionFactory {
 
     @Override
     public IExternalScalarFunction getExternalFunction() {
-        return new LocationRecognitionFunction();
+        return new ONLPSentimentScoreFunction();
     }
 
 }

@@ -16,30 +16,27 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.asterix.external.library;
 
 
+import edu.stanford.nlp.ling.CoreAnnotations;
+import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.sentiment.SentimentCoreAnnotations;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.util.CoreMap;
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
 import org.apache.asterix.external.library.java.JObjects.JInt;
-import org.apache.asterix.external.library.java.JObjects.JRecord;
 import org.apache.asterix.external.library.java.JObjects.JString;
+import org.apache.asterix.external.library.java.JObjects.JRecord;
 import org.apache.asterix.external.library.java.JTypeTag;
 
+import java.util.Properties;
 
-import opennlp.tools.doccat.DoccatModel;
-import opennlp.tools.doccat.DocumentCategorizerME;
-import opennlp.tools.doccat.DocumentSampleStream;
-import opennlp.tools.util.ObjectStream;
-import opennlp.tools.util.PlainTextByLineStream;
+public class SentimentAnalysisFunction implements IExternalScalarFunction {
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-public class ONLPSentimentFunction implements IExternalScalarFunction {
-
-    private static DoccatModel m;
+    private static StanfordCoreNLP pipeline;
 
     @Override
     public void deinitialize() {
@@ -64,7 +61,7 @@ public class ONLPSentimentFunction implements IExternalScalarFunction {
         JString sentimentText = (JString) functionHelper.getObject(JTypeTag.STRING);
 
         //Getting sentiment score
-        int score = getSentiment(text.getValue(), m);
+        int score = findSentiment(text.getValue());
 
         num.setValue(score);
 
@@ -86,32 +83,28 @@ public class ONLPSentimentFunction implements IExternalScalarFunction {
 
     @Override
     public void initialize(IFunctionHelper functionHelper) throws Exception {
-//        InputStream is = new FileInputStream("output/en-doccat.bin");
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream("en-doccat.bin");
-        m = new DoccatModel(in);
+        Properties props = new Properties();
+        props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+        pipeline = new StanfordCoreNLP(props);
     }
 
+    public static int findSentiment(String tweet) {
 
-    public static int getSentiment(String tweet, DoccatModel model) {
-        DocumentCategorizerME myCategorizer = new DocumentCategorizerME(model);
-        double[] outcomes = myCategorizer.categorize(tweet);
-        String category = myCategorizer.getBestCategory(outcomes);
-
-        //        System.out.println(category);
-        if (category.equalsIgnoreCase("0")) {
-            return 0;
-        } else if(category.equalsIgnoreCase("1")) {
-            return 1;
+        int mainSentiment = 0;
+        if (tweet != null && tweet.length() > 0) {
+            int longest = 0;
+            Annotation annotation = pipeline.process(tweet);
+            for (CoreMap sentence : annotation.get(CoreAnnotations.SentencesAnnotation.class)) {
+                Tree tree = sentence.get(SentimentCoreAnnotations.SentimentAnnotatedTree.class);
+                int sentiment = RNNCoreAnnotations.getPredictedClass(tree);
+                String partText = sentence.toString();
+                if (partText.length() > longest) {
+                    mainSentiment = sentiment;
+                    longest = partText.length();
+                }
+            }
         }
-        else if(category.equalsIgnoreCase("2")) {
-            return 2;
-        }
-        else if(category.equalsIgnoreCase("3")) {
-            return 3;
-        }
-        else{
-            return 4;
-        }
+        return mainSentiment;
     }
 
 }

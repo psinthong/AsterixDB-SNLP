@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.asterix.external.library;
+
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -34,6 +34,7 @@ import java.util.*;
 
 public class LocationRecognitionFunction implements IExternalScalarFunction {
 
+    private static  StanfordCoreNLP pipeline;
 
     @Override
     public void deinitialize() {
@@ -69,16 +70,18 @@ public class LocationRecognitionFunction implements IExternalScalarFunction {
     }
 
     @Override
-    public void initialize(IFunctionHelper functionHelper) throws Exception {}
+    public void initialize(IFunctionHelper functionHelper) throws Exception {
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+        pipeline = new StanfordCoreNLP(props);
+    }
 
 
     public static Set<String> ner(String text)
     {
-        Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+
         Annotation document = new Annotation(text);
 
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         // run all Annotators on this text
         pipeline.annotate(document);
 

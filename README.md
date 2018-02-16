@@ -84,9 +84,9 @@ You may now use the AsterixDB library in AQL statements and queries. To look at 
 ### Creating Input Data Types
 The following query creates a dataverse, that acts as a namespace for all datatypes that we also create there after. We assume that these UDFs will be applied to Twitter data for which we expect a specific schema.
 
-    drop dataverse feeds if exists;
+    drop feeds if exists;
     create dataverse feeds;
-    use dataverse feeds;
+    use feeds;
 
 
     create type Tweet as open {
@@ -96,7 +96,7 @@ The following query creates a dataverse, that acts as a namespace for all dataty
 
 ### Creating Output Data Types
 
-    use dataverse feeds;
+    use feeds;
     create type NameEntityType if not exists as closed{
         id: int64,
         text: string,
@@ -110,15 +110,16 @@ The following query creates a dataverse, that acts as a namespace for all dataty
     };
 
 ### Sample Query for Stanford CoreNLP sentiment
-    let $item := {"id":1, "text":"Today is Friday"}
-    return snlp#getSentiment($item)
+
+    snlp#getSentiment({"id":1, "text":"Today is Friday"})
+
+    snlp#getSNLPSentimentScore("Today is Friday")
     
 ### Sample Query for OpenNLP sentiment
 
-    let $item := {"id":1, "text":"Today is Friday"}
-    return snlp#getONLPSentiment($item)
+    snlp#getONLPSentiment({"id":1, "text":"Today is Friday"})
     
-    snlp#getSentimentScore("Today is Friday")
+    snlp#getONLPSentimentScore("Today is Friday")
     
 ## Function Usage
 
@@ -144,13 +145,15 @@ The following query creates a dataverse, that acts as a namespace for all dataty
             "sentiment": "Neutral" 
         }
         
-##### Only get Sentiment score(OpenNLP)
+##### Only get Sentiment score
  
-     snlp#getSentimentScore($s)
+     snlp#getSNLPSentimentScore($item)
+
+     snlp#getONLPSentimentScore($item)
 
 - Runs analysis on a given text and gives back a score in range of 0-4
 - Argument:
-    + s: string
+    + item: string
 - Return Value:
     + int32
 

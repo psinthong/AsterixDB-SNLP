@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.asterix.external.library;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
@@ -35,9 +34,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-public class PersonRecognitionFunction implements IExternalScalarFunction {
+public class DateRecognitionFunction implements IExternalScalarFunction {
 
-
+    private static StanfordCoreNLP pipeline;
 
     @Override
     public void deinitialize() {
@@ -46,9 +45,9 @@ public class PersonRecognitionFunction implements IExternalScalarFunction {
 
     @Override
     public void evaluate(IFunctionHelper functionHelper) throws Exception {
-
         JRecord inputRecord = (JRecord) functionHelper.getArgument(0);
         JString text = (JString) inputRecord.getValueByName("text");
+
         JRecord record = (JRecord) functionHelper.getResultObject();
 
         //NER
@@ -65,24 +64,24 @@ public class PersonRecognitionFunction implements IExternalScalarFunction {
             nameList.add(nameJ);
         }
 
-        record.setField("id", inputRecord.getValueByName("id"));
-        record.setField("text", text);
         record.setField("entities", nameList);
 
         functionHelper.setResult(record);
     }
 
     @Override
-    public void initialize(IFunctionHelper functionHelper) throws Exception {}
+    public void initialize(IFunctionHelper functionHelper) throws Exception {
+        Properties props = new Properties();
+        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+        pipeline = new StanfordCoreNLP(props);
+    }
 
 
     public static Set<String> ner(String text)
     {
-        Properties props = new Properties();
-        props.put("annotators", "tokenize, ssplit, pos, lemma, ner, parse, dcoref");
+
         Annotation document = new Annotation(text);
 
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
         // run all Annotators on this text
         pipeline.annotate(document);
 
@@ -90,7 +89,7 @@ public class PersonRecognitionFunction implements IExternalScalarFunction {
         // a CoreMap is essentially a Map that uses class objects as keys and has values with custom types
         List<CoreMap> sentences = document.get(CoreAnnotations.SentencesAnnotation.class);
 
-        Set<String> locations = new HashSet<>();
+        Set<String> entities = new HashSet<>();
 
         for(CoreMap sentence: sentences) {
             // traversing the words in the current sentence
@@ -102,14 +101,14 @@ public class PersonRecognitionFunction implements IExternalScalarFunction {
                 // this is the NER label of the token
                 String ne = token.get(CoreAnnotations.NamedEntityTagAnnotation.class);
 
-                if(ne.equals("PERSON"))
+                if(ne.equals("DATE"))
                 {
-                    locations.add(word);
+                    entities.add(word);
                 }
             }
         }
 
-        return locations;
+        return entities;
 
     }
 

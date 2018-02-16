@@ -21,10 +21,18 @@
   <libraryFunctions>
     <libraryFunction>
       <function_type>SCALAR</function_type>
-      <name>getSentimentScore</name>
+      <name>getSNLPSentimentScore</name>
       <arguments>ASTRING</arguments>
       <return_type>AINT32</return_type>
-      <definition>org.apache.asterix.external.library.SentimentAnalysisScoreFactory
+      <definition>SNLPSentimentScoreFactory
+      </definition>
+    </libraryFunction>
+    <libraryFunction>
+      <function_type>SCALAR</function_type>
+      <name>getONLPSentimentScore</name>
+      <arguments>ASTRING</arguments>
+      <return_type>AINT32</return_type>
+      <definition>ONLPSentimentScoreFactory
       </definition>
     </libraryFunction>
     <libraryFunction>
@@ -32,7 +40,7 @@
       <name>getSentiment</name>
       <arguments>Tweet</arguments>
       <return_type>TweetSentimentType</return_type>
-      <definition>org.apache.asterix.external.library.SentimentAnalysisFactory
+      <definition>SentimentAnalysisFactory
       </definition>
     </libraryFunction>
     <libraryFunction>
@@ -40,7 +48,7 @@
       <name>getONLPSentiment</name>
       <arguments>Tweet</arguments>
       <return_type>TweetSentimentType</return_type>
-      <definition>org.apache.asterix.external.library.ONLPSentimentFactory
+      <definition>ONLPSentimentFactory
       </definition>
     </libraryFunction>
     <libraryFunction>
@@ -48,7 +56,7 @@
       <name>getLocation</name>
       <arguments>Tweet</arguments>
       <return_type>NameEntityType</return_type>
-      <definition>org.apache.asterix.external.library.LocationRecognitionFactory
+      <definition>LocationRecognitionFactory
       </definition>
     </libraryFunction>
     <libraryFunction>
@@ -56,7 +64,7 @@
       <name>getName</name>
       <arguments>Tweet</arguments>
       <return_type>NameEntityType</return_type>
-      <definition>org.apache.asterix.external.library.PersonRecognitionFactory
+      <definition>PersonRecognitionFactory
       </definition>
     </libraryFunction>
     <libraryFunction>
@@ -64,15 +72,7 @@
       <name>getDate</name>
       <arguments>Tweet</arguments>
       <return_type>NameEntityType</return_type>
-      <definition>org.apache.asterix.external.library.DateRecognitionFactory
-      </definition>
-    </libraryFunction>
-    <libraryFunction>
-      <function_type>SCALAR</function_type>
-      <name>getSKLSentiment</name>
-      <arguments>ASTRING</arguments>
-      <return_type>ASTRING</return_type>
-      <definition>org.apache.asterix.external.library.SkLearnSentimentFactory
+      <definition>DateRecognitionFactory
       </definition>
     </libraryFunction>
   </libraryFunctions>

@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.asterix.external.library;
+
 
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.neural.rnn.RNNCoreAnnotations;
@@ -34,8 +34,9 @@ import org.apache.asterix.external.library.java.JTypeTag;
 
 import java.util.Properties;
 
-public class SentimentAnalysisFunction implements IExternalScalarFunction {
+public class SNLPSentimentScoreFunction implements IExternalScalarFunction {
 
+    private static StanfordCoreNLP pipeline;
 
     @Override
     public void deinitialize() {
@@ -45,49 +46,26 @@ public class SentimentAnalysisFunction implements IExternalScalarFunction {
     @Override
     public void evaluate(IFunctionHelper functionHelper) throws Exception {
 
-        //-------------Apply with twitter data----------------//
-        JRecord inputRecord = (JRecord) functionHelper.getArgument(0);
-        JString text = (JString) inputRecord.getValueByName("text");
-        //----------------------------------------------------//
+        JString text = ((JString) functionHelper.getArgument(0));
 
-        //-------------Apply to general text------------------//
-        // JString text = ((JString) functionHelper.getArgument(0));
-        //----------------------------------------------------//
+        JInt output = (JInt) functionHelper.getObject(JTypeTag.INT);
 
-        JRecord record = (JRecord) functionHelper.getResultObject();
-
-        JInt num = (JInt) functionHelper.getObject(JTypeTag.INT);
-        JString sentimentText = (JString) functionHelper.getObject(JTypeTag.STRING);
-
-        //Getting sentiment score
         int score = findSentiment(text.getValue());
 
-        num.setValue(score);
+        output.setValue(score);
 
-        //Sentiment types
-        String[] sentimentType = { "Very Negative","Negative", "Neutral", "Positive", "Very Positive"};
-        String sentiment = sentimentType[score];
-
-
-        sentimentText.setValue(sentiment);
-
-
-        record.setField("id", inputRecord.getValueByName("id"));
-        record.setField("text", text);
-        record.setField("score", num);
-        record.setField("sentiment", sentimentText);
-
-        functionHelper.setResult(record);
+        functionHelper.setResult(output);
     }
 
     @Override
-    public void initialize(IFunctionHelper functionHelper) throws Exception {}
+    public void initialize(IFunctionHelper functionHelper) throws Exception {
+        Properties props = new Properties();
+        props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
+        pipeline = new StanfordCoreNLP(props);
+    }
 
     public static int findSentiment(String tweet) {
 
-        Properties props = new Properties();
-        props.setProperty("annotators", "tokenize, ssplit, parse, sentiment");
-        StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 
         int mainSentiment = 0;
         if (tweet != null && tweet.length() > 0) {

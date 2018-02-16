@@ -16,49 +16,77 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.apache.asterix.external.library;
+
+
+
+import org.apache.asterix.external.api.IExternalScalarFunction;
+import org.apache.asterix.external.api.IFunctionHelper;
+import org.apache.asterix.external.library.java.JObjects.JInt;
+import org.apache.asterix.external.library.java.JObjects.JRecord;
+import org.apache.asterix.external.library.java.JObjects.JString;
+import org.apache.asterix.external.library.java.JTypeTag;
+
 
 import opennlp.tools.doccat.DoccatModel;
 import opennlp.tools.doccat.DocumentCategorizerME;
-import org.apache.asterix.external.api.IExternalScalarFunction;
-import org.apache.asterix.external.api.IFunctionHelper;
+import opennlp.tools.doccat.DocumentSampleStream;
+import opennlp.tools.util.ObjectStream;
+import opennlp.tools.util.PlainTextByLineStream;
 
-import org.apache.asterix.external.library.java.JObjects.JString;
-import org.apache.asterix.external.library.java.JObjects.JInt;
-import org.apache.asterix.external.library.java.JTypeTag;
-
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
-
-public class SentimentAnalysisScoreFunction implements IExternalScalarFunction {
-
+public class ONLPSentimentFunction implements IExternalScalarFunction {
 
     private static DoccatModel m;
-
-    @Override
-    public void evaluate(IFunctionHelper functionHelper) throws Exception {
-        JString text = ((JString) functionHelper.getArgument(0));
-
-        JInt result = (JInt) functionHelper.getObject(JTypeTag.INT);
-
-
-        //Getting sentiment score
-        int score = getSentiment(text.getValue(), m);
-
-
-        result.setValue(score);
-        functionHelper.setResult(result);
-    }
-
 
     @Override
     public void deinitialize() {
         System.out.println("De-Initialized");
     }
 
+    @Override
+    public void evaluate(IFunctionHelper functionHelper) throws Exception {
+
+        //-------------Apply with twitter data----------------//
+        JRecord inputRecord = (JRecord) functionHelper.getArgument(0);
+        JString text = (JString) inputRecord.getValueByName("text");
+        //----------------------------------------------------//
+
+        //-------------Apply to general text------------------//
+        // JString text = ((JString) functionHelper.getArgument(0));
+        //----------------------------------------------------//
+
+        JRecord record = (JRecord) functionHelper.getResultObject();
+
+        JInt num = (JInt) functionHelper.getObject(JTypeTag.INT);
+        JString sentimentText = (JString) functionHelper.getObject(JTypeTag.STRING);
+
+        //Getting sentiment score
+        int score = getSentiment(text.getValue(), m);
+
+        num.setValue(score);
+
+        //Sentiment types
+        String[] sentimentType = { "Very Negative","Negative", "Neutral", "Positive", "Very Positive"};
+        String sentiment = sentimentType[score];
+
+
+        sentimentText.setValue(sentiment);
+
+
+        record.setField("id", inputRecord.getValueByName("id"));
+        record.setField("text", text);
+        record.setField("score", num);
+        record.setField("sentiment", sentimentText);
+
+        functionHelper.setResult(record);
+    }
 
     @Override
     public void initialize(IFunctionHelper functionHelper) throws Exception {
+//        InputStream is = new FileInputStream("output/en-doccat.bin");
         InputStream in = this.getClass().getClassLoader().getResourceAsStream("en-doccat.bin");
         m = new DoccatModel(in);
     }
@@ -69,7 +97,7 @@ public class SentimentAnalysisScoreFunction implements IExternalScalarFunction {
         double[] outcomes = myCategorizer.categorize(tweet);
         String category = myCategorizer.getBestCategory(outcomes);
 
-
+        //        System.out.println(category);
         if (category.equalsIgnoreCase("0")) {
             return 0;
         } else if(category.equalsIgnoreCase("1")) {
