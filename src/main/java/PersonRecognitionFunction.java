@@ -25,9 +25,10 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
-import org.apache.asterix.external.library.java.JObjects.JOrderedList;
-import org.apache.asterix.external.library.java.JObjects.JRecord;
-import org.apache.asterix.external.library.java.JObjects.JString;
+import org.apache.asterix.external.library.java.JBuiltinType;
+import org.apache.asterix.external.library.java.base.JOrderedList;
+import org.apache.asterix.external.library.java.base.JRecord;
+import org.apache.asterix.external.library.java.base.JString;
 import org.apache.asterix.external.library.java.JTypeTag;
 
 import java.util.HashSet;
@@ -52,7 +53,8 @@ public class PersonRecognitionFunction implements IExternalScalarFunction {
         JRecord record = (JRecord) functionHelper.getResultObject();
 
         //NER
-        JOrderedList nameList = new JOrderedList(functionHelper.getObject(JTypeTag.STRING));
+        JOrderedList nameList = new JOrderedList(JBuiltinType.JSTRING);
+        nameList.add(functionHelper.getObject(JTypeTag.STRING));
         Set<String> names = ner(text.getValue());
 
 

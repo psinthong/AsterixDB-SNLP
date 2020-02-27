@@ -22,7 +22,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getSNLPSentimentScore</name>
-      <arguments>ASTRING</arguments>
+      <argument_type>ASTRING</argument_type>
       <return_type>AINT32</return_type>
       <definition>SNLPSentimentScoreFactory
       </definition>
@@ -30,7 +30,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getONLPSentimentScore</name>
-      <arguments>ASTRING</arguments>
+      <argument_type>ASTRING</argument_type>
       <return_type>AINT32</return_type>
       <definition>ONLPSentimentScoreFactory
       </definition>
@@ -38,7 +38,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getSNLPSentiment</name>
-      <arguments>Tweet</arguments>
+      <argument_type>Tweet</argument_type>
       <return_type>TweetSentimentType</return_type>
       <definition>SentimentAnalysisFactory
       </definition>
@@ -46,7 +46,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getONLPSentiment</name>
-      <arguments>Tweet</arguments>
+      <argument_type>Tweet</argument_type>
       <return_type>TweetSentimentType</return_type>
       <definition>ONLPSentimentFactory
       </definition>
@@ -54,7 +54,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getLocation</name>
-      <arguments>Tweet</arguments>
+      <argument_type>Tweet</argument_type>
       <return_type>NameEntityType</return_type>
       <definition>LocationRecognitionFactory
       </definition>
@@ -62,7 +62,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getName</name>
-      <arguments>Tweet</arguments>
+      <argument_type>Tweet</argument_type>
       <return_type>NameEntityType</return_type>
       <definition>PersonRecognitionFactory
       </definition>
@@ -70,7 +70,7 @@
     <libraryFunction>
       <function_type>SCALAR</function_type>
       <name>getDate</name>
-      <arguments>Tweet</arguments>
+      <argument_type>Tweet</argument_type>
       <return_type>NameEntityType</return_type>
       <definition>DateRecognitionFactory
       </definition>
