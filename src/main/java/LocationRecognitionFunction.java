@@ -25,9 +25,10 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
-import org.apache.asterix.external.library.java.JObjects.JRecord;
-import org.apache.asterix.external.library.java.JObjects.JString;
-import org.apache.asterix.external.library.java.JObjects.JOrderedList;
+import org.apache.asterix.external.library.java.JBuiltinType;
+import org.apache.asterix.external.library.java.base.JRecord;
+import org.apache.asterix.external.library.java.base.JString;
+import org.apache.asterix.external.library.java.base.JOrderedList;
 import org.apache.asterix.external.library.java.JTypeTag;
 
 import java.util.*;
@@ -52,7 +53,8 @@ public class LocationRecognitionFunction implements IExternalScalarFunction {
         //NER
         Set<String> locations = ner(text.getValue());
 
-        JOrderedList locationList = new JOrderedList(functionHelper.getObject(JTypeTag.STRING));
+        JOrderedList locationList = new JOrderedList(JBuiltinType.JSTRING);
+        locationList.add(functionHelper.getObject(JTypeTag.STRING));
 
 
         for(String loc : locations)

@@ -27,9 +27,9 @@ import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.util.CoreMap;
 import org.apache.asterix.external.api.IExternalScalarFunction;
 import org.apache.asterix.external.api.IFunctionHelper;
-import org.apache.asterix.external.library.java.JObjects.JInt;
-import org.apache.asterix.external.library.java.JObjects.JString;
-import org.apache.asterix.external.library.java.JObjects.JRecord;
+import org.apache.asterix.external.library.java.base.JInt;
+import org.apache.asterix.external.library.java.base.JString;
+import org.apache.asterix.external.library.java.base.JRecord;
 import org.apache.asterix.external.library.java.JTypeTag;
 
 import java.util.Properties;
